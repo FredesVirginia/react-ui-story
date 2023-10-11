@@ -25,7 +25,7 @@ const firebaseConfig = {
  const app = initializeApp(firebaseConfig);
 
  const messaging = getMessaging();
- getToken(messaging, { vapidKey : "BETlaoi-RhzF7UspHOJl2sUvah9xQh_hWJtulY9x8mleV_Kgmh8pQkg6H"}).then((currentToken) => {
+ getToken(messaging, { vapidKey : "BETlaoi-RhzF7UspHOJl2sUvah9xQh_hWJtulY9x8mleV_Kgmh8pQkg6HxoOUZLXFTF_qqVgh7ko6NGd0TWGUhc"}).then((currentToken) => {
    if (currentToken) {
      // Send the token to your server and update the UI if necessary
      // ...
