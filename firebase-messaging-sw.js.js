@@ -1,19 +1,23 @@
-import { getMessaging, getToken } from "firebase/messaging";
+import { initializeApp } from 'firebase/app';
+import { getFirestore } from 'firebase/firestore/compat';
+import { getMessaging } from 'firebase/messaging/compat';
 
-// Get registration token. Initially this makes a network call, once retrieved
-// subsequent calls to getToken will return from cache.
-const messaging = getMessaging();
-getToken(messaging, { vapidKey: "BETlaoi-RhzF7UspHOJl2sUvah9xQh_hWJtulY9x8mleV_Kgmh8pQkg6HxoOUZLXFTF_qqVgh7ko6NGd0TWGUhc" }).then((currentToken) => {
-  if (currentToken) {
-    // Send the token to your server and update the UI if necessary
-    // ...
-    console.log("Curente token fue" , currentToken)
-  } else {
-    // Show permission request UI
-    console.log('No registration token available. Request permission to generate one.');
-    // ...
-  }
-}).catch((err) => {
-  console.log('ERROR AL CONSEGUIR TOKEN. ', err);
-  // ...
+const firebaseConfig = {
+    apiKey: "AIzaSyA_CE84Bo8bies8EjQwhzCMYaPBwqIFHjY",
+    authDomain: "firefise-shooping.firebaseapp.com",
+    projectId: "firefise-shooping",
+    storageBucket: "firefise-shooping.appspot.com",
+    messagingSenderId: "208414627162",
+    appId: "1:208414627162:web:4601b305106d94df1d8f63",
+    measurementId: "G-5S463MWX1P"
+  };
+  
+  // Initialize Firebase
+   const app = initializeApp(firebaseConfig);
+   const messaging = firebase.messaging();
+
+// Configura la recepción de las notificaciones push.
+messaging.onBackgroundMessage((payload) => {
+  console.log('Notificación push recibida:', payload);
+  // Personaliza el manejo de la notificación aquí, como mostrar una notificación al usuario.
 });

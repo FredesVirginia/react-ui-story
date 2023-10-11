@@ -3,6 +3,7 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getMessaging , getToken} from "firebase/messaging";
 
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -24,13 +25,26 @@ const firebaseConfig = {
 // Initialize Firebase
  const app = initializeApp(firebaseConfig);
 
- const messaging = getMessaging();
- try{
-  getToken(messaging, { vapidKey : "BETlaoi-RhzF7UspHOJl2sUvah9xQh_hWJtulY9x8mleV_Kgmh8pQkg6HxoOUZLXFTF_qqVgh7ko6NGd0TWGUhc"})
- }
- catch(e) {
-  console.log("ERROR AL CONSEGUIR EL TOKEN , EL ERROR FUE " , e)
- }
+ if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('../../firebase-messaging-sw.js')
+    .then((registration) => {
+      const messaging = getMessaging();
+      getToken(messaging, { vapidKey: "BETlaoi-RhzF7UspHOJl2sUvah9xQh_hWJtulY9x8mleV_Kgmh8pQkg6HxoOUZLXFTF_qqVgh7ko6NGd0TWGUhc" })
+        .then((currentToken) => {
+          if (currentToken) {
+            console.log("Current token is:", currentToken);
+          } else {
+            console.log('No registration token available. Request permission to generate one.');
+          }
+        })
+        .catch((err) => {
+          console.log('Error al conseguir el token:', err);
+        });
+    })
+    .catch((error) => {
+      console.error('Error al registrar el service worker:', error);
+    });
+}
  
 
 
