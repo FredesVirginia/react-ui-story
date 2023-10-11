@@ -25,19 +25,12 @@ const firebaseConfig = {
  const app = initializeApp(firebaseConfig);
 
  const messaging = getMessaging();
- getToken(messaging, { vapidKey : "BETlaoi-RhzF7UspHOJl2sUvah9xQh_hWJtulY9x8mleV_Kgmh8pQkg6HxoOUZLXFTF_qqVgh7ko6NGd0TWGUhc"}).then((currentToken) => {
-   if (currentToken) {
-     // Send the token to your server and update the UI if necessary
-     // ...
-     console.log("El current token es " , currentToken);
-   } else {
-     // Show permission request UI
-     console.log('No registration token available. Request permission to generate one.');
-     // ...
-   }
- }).catch((err) => {
-   console.log('An error occurred while retrieving token. ', err);
-   // ...
- });
+ try{
+  getToken(messaging, { vapidKey : "BETlaoi-RhzF7UspHOJl2sUvah9xQh_hWJtulY9x8mleV_Kgmh8pQkg6HxoOUZLXFTF_qqVgh7ko6NGd0TWGUhc"})
+ }
+ catch(e) {
+  console.log("ERROR AL CONSEGUIR EL TOKEN , EL ERROR FUE " , e)
+ }
+ 
 
 
